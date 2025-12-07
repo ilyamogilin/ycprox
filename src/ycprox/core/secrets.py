@@ -18,21 +18,32 @@ class TestKeyring(KeyringBackend):
         self.storage.pop((service, username), None)
 
 
-assert settings.debug, "Debug mode must be enabled"
-keyring.set_keyring(TestKeyring())
+# assert settings.debug, "Debug mode must be enabled"
+# keyring.set_keyring(TestKeyring())
 
 class SecretsNames(Enum):
-    CLI_NAME = "ycprox"
     OAUTH = "oauth_yandex_token"
 
 class Vault():
-    def get_oauth_token(self):
-        return keyring.get_password(SecretsNames.CLI_NAME, SecretsNames.OAUTH)
+    secrets: dict[SecretsNames, str] = {} 
 
-    def set_oauth_token(self, token):
-        keyring.set_password(SecretsNames.CLI_NAME, SecretsNames.OAUTH, token)
-    
-    def delete_oauth_token(self):
-        keyring.delete_password(SecretsNames.CLI_NAME, SecretsNames.OAUTH)
+    def load_oauth_token(self) -> str | None:
+        token = keyring.get_password(settings.cli_name, SecretsNames.OAUTH.value)
+        if token:
+            self.secrets[SecretsNames.OAUTH] = token
+            return token
+        else:
+            return None
+
+    def get_oauth_token(self) -> str | None:
+        return self.secrets.get(SecretsNames.OAUTH.value)
+
+    def save_oauth_token(self, token: str):
+        self.secrets[SecretsNames.OAUTH.value] = token
+        keyring.set_password(settings.cli_name, SecretsNames.OAUTH.value, token)
+
+    def remove_oauth_token(self):
+        self.secrets.pop(SecretsNames.OAUTH.value, None)
+        keyring.delete_password(settings.cli_name, SecretsNames.OAUTH.value)
 
 vault = Vault()

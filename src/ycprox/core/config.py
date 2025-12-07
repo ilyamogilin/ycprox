@@ -12,6 +12,12 @@ class Settings(BaseSettings):
         description="Debug mode"
     )
 
+    cli_name: str = Field(
+        default="ycprox",
+        description="Name of the CLI",
+        exclude=True
+    )
+
     version: str = Field(
         default="0.1.0", 
         description="Version of the application",

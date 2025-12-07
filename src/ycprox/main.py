@@ -1,15 +1,23 @@
 from ycprox.core.secrets import vault
-from ycprox.core.config import settings
+from ycprox.cli.auth import Application
+from pydantic_settings import CliApp
 
 def main():
-    print(f"Hello from ycprox! {settings.ua_string}")
-
+    CliApp.run(Application)
 
 def test_vault():
-    vault.set_oauth_token("1234567890")
-    print(f"Token is {vault.get_oauth_token()}")
-    vault.delete_oauth_token()
-    print(f"Token is {vault.get_oauth_token()}")
+    vault.save_oauth_token("1234567890")
+    token = vault.load_oauth_token()
+    if token:
+        print(f"Token is {token}")
+    else:
+        print("Token not found")
+    vault.remove_oauth_token()
+    token = vault.load_oauth_token()
+    if token:
+        print(f"Token is {token}")
+    else:
+        print("Token not found")
 
 if __name__ == "__main__":
     main()
