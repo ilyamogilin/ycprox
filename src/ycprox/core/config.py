@@ -8,6 +8,8 @@ class Settings(BaseSettings):
     )
 
     debug: bool = True
+    version: str = "0.1.0"
+    ua_string: str = f"ycprox/{version}"
 
 
 settings = Settings()

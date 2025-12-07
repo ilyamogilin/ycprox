@@ -1,7 +1,8 @@
 from ycprox.core.secrets import vault
+from ycprox.core.config import settings
 
 def main():
-    print("Hello from ycprox!")
+    print(f"Hello from ycprox! {settings.ua_string}")
 
 
 def test_vault():
