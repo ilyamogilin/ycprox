@@ -1,4 +1,5 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import Field
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
@@ -9,7 +10,11 @@ class Settings(BaseSettings):
 
     debug: bool = True
     version: str = "0.1.0"
-    ua_string: str = f"ycprox/{version}"
+
+    ua_string: str = Field(
+        default=f"ycprox/{version}", 
+        description="User-Agent string for HTTP requests",
+    )
 
 
 settings = Settings()
