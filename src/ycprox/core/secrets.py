@@ -21,18 +21,18 @@ class TestKeyring(KeyringBackend):
 assert settings.debug, "Debug mode must be enabled"
 keyring.set_keyring(TestKeyring())
 
-class SecretNames(Enum):
+class SecretsNames(Enum):
     CLI_NAME = "ycprox"
     OAUTH = "oauth_yandex_token"
 
 class Vault():
     def get_oauth_token(self):
-        return keyring.get_password(SecretNames.CLI_NAME, SecretNames.OAUTH)
+        return keyring.get_password(SecretsNames.CLI_NAME, SecretsNames.OAUTH)
 
     def set_oauth_token(self, token):
-        keyring.set_password(SecretNames.CLI_NAME, SecretNames.OAUTH, token)
+        keyring.set_password(SecretsNames.CLI_NAME, SecretsNames.OAUTH, token)
     
     def delete_oauth_token(self):
-        keyring.delete_password(SecretNames.CLI_NAME, SecretNames.OAUTH)
+        keyring.delete_password(SecretsNames.CLI_NAME, SecretsNames.OAUTH)
 
 vault = Vault()
