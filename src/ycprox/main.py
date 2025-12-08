@@ -24,4 +24,4 @@ def test_api_gateway_spec():
     print(API_SPEC.format(version="1.0.0", function_id="d4eo19j12tiqo3oe1jca"))
 
 if __name__ == "__main__":
-    test_api_gateway_spec()
+    main()
