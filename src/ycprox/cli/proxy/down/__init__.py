@@ -3,7 +3,7 @@ from yandex.cloud.serverless.apigateway.v1.apigateway_service_pb2 import DeleteA
 
 from ycprox.cli.proxy.model import ProxySettings
 from ycprox.core.secrets import vault
-from ycprox.core.yc_client import get_sdk, get_apigateway_service
+from ycprox.ycloud.client import get_sdk, get_apigateway_service
 
 
 class ProxyAppDown(BaseModel):
@@ -24,7 +24,7 @@ class ProxyAppDown(BaseModel):
             print("No gateway_id found in saved settings.")
             return
         
-        print(f"Deleting API Gateway '{proxy.name}' (ID: {proxy.gateway_id})...")
+        print(f"Deleting API Gateway '{proxy.gw_name}' (ID: {proxy.gateway_id})...")
         
         service = get_apigateway_service()
         operation = service.Delete(DeleteApiGatewayRequest(

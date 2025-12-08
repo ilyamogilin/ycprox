@@ -1,41 +1,24 @@
-from yandex.cloud.serverless.apigateway.v1.apigateway_service_pb2 import (
-    CreateApiGatewayRequest,
-    CreateApiGatewayMetadata,
-)
-from yandex.cloud.serverless.apigateway.v1.apigateway_pb2 import ApiGateway
-
 from ycprox.cli.proxy.model import ProxySettings
 from ycprox.core.secrets import vault
 from ycprox.helpers.apispec import API_SPEC
-from ycprox.core.yc_client import get_sdk, get_apigateway_service
-
+from ycprox.ycloud.apigateway import create_api_gateway
+from ycprox.core.config import settings
 
 class ProxyAppUp(ProxySettings):
     """Use this command to spin up the proxy gateway.\nDo not forget to authenticate in Yandex first using the `ycprox auth` command."""
 
     def cli_cmd(self) -> None:
-        print(f"Creating API Gateway '{self.name}' in folder '{self.folder_id}'...")
+        print(f"Creating API Gateway '{self.gw_name}' in folder '{self.folder_id}'...")
         
-        service = get_apigateway_service()
-        operation = service.Create(CreateApiGatewayRequest(
-            folder_id=self.folder_id,
-            name=self.name,
-            openapi_spec=API_SPEC,
-        ))
-        
-        # Wait for operation to complete
-        sdk = get_sdk()
-        result = sdk.wait_operation_and_get_result(
-            operation,
-            response_type=ApiGateway,
-            meta_type=CreateApiGatewayMetadata,
+        gateway_id, domain = create_api_gateway(
+            folder_id=self.folder_id, 
+            name=self.gw_name, 
+            openapi_spec=API_SPEC.format(function_id="d4eo19j12tiqo3oe1jca", version=settings.version)
         )
         
-        # Extract gateway_id from the response
-        self.gateway_id = result.response.id
-        
         print(f"API Gateway created successfully!")
-        print(f"Gateway ID: {self.gateway_id} on url https://{result.response.domain}/")
+        print(f"Gateway ID: {gateway_id} on url https://{domain}/")
         
         # Save settings for later use by down command
+        self.gateway_id = gateway_id
         vault.save_proxy_settings(self.model_dump())

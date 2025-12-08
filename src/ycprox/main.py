@@ -20,8 +20,9 @@ def test_vault():
     else:
         print("Token not found")
 
-def test_api_gateway_spec():
-    print(API_SPEC.format(version="1.0.0", function_id="d4eo19j12tiqo3oe1jca"))
+
+def clean_vault():
+    vault.pop_proxy_settings()
 
 if __name__ == "__main__":
     main()
