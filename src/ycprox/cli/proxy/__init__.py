@@ -3,6 +3,8 @@ from pydantic import BaseModel, Field, model_validator
 from ycprox.core.config import settings
 
 class Proxy(BaseModel):
+    """Use this command to deploy the proxy gateway.\nDo not forget to authenticate in Yandex first using the `ycprox auth` command."""
+
     name: str = Field(description="Name of the proxy gateway", default="proxy-gateway")
     org_id: Optional[str] = Field(default=None, description="Organization ID to deploy proxy-gateway")
     cloud_id: Optional[str] = Field(default=None, description="Cloud ID to deploy proxy-gateway")
