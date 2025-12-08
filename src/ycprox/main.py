@@ -1,6 +1,7 @@
 from ycprox.core.secrets import vault
 from ycprox.cli import Application
 from pydantic_settings import CliApp
+from ycprox.helpers.apispec import API_SPEC
 
 def main():
     CliApp.run(Application)
@@ -19,5 +20,8 @@ def test_vault():
     else:
         print("Token not found")
 
+def test_api_gateway_spec():
+    print(API_SPEC.format(version="1.0.0", function_id="d4eo19j12tiqo3oe1jca"))
+
 if __name__ == "__main__":
-    main()
+    test_api_gateway_spec()

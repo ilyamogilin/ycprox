@@ -6,7 +6,7 @@ from yandex.cloud.serverless.apigateway.v1.apigateway_pb2 import ApiGateway
 
 from ycprox.cli.proxy.model import ProxySettings
 from ycprox.core.secrets import vault
-from ycprox.core.apispec import API_SPEC
+from ycprox.helpers.apispec import API_SPEC
 from ycprox.core.yc_client import get_sdk, get_apigateway_service
 
 
