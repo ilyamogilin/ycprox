@@ -8,7 +8,7 @@ class ProxySettings(BaseModel):
     """Shared proxy settings model for up/down commands."""
 
     url: str = Field(description="URL of the destination service to proxy requests to")
-    name: str = Field(default="proxy-gateway", description="Name of the proxy gateway")
+    name: str = Field(default="ycprox-gateway", description="Name of the proxy gateway")
     folder_id: Optional[str] = Field(default=None, description="Folder ID to deploy proxy-gateway")
     
     # Non-CLI args - populated after resources creation
