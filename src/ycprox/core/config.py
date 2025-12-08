@@ -26,16 +26,6 @@ class Settings(BaseSettings):
         exclude=True
     )
 
-    org_id: Optional[str] = Field(
-        default=None,
-        description="Organization ID to deploy proxy-gateway",
-    )
-
-    cloud_id: Optional[str] = Field(
-        default=None,
-        description="Cloud ID to deploy proxy-gateway",
-    )
-
     folder_id: Optional[str] = Field(
         default=None,
         description="Folder ID to deploy proxy-gateway",
