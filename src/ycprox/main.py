@@ -1,5 +1,5 @@
 from ycprox.core.secrets import vault
-from ycprox.cli.auth import Application
+from ycprox.cli import Application
 from pydantic_settings import CliApp
 
 def main():
