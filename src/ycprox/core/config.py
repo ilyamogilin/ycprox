@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     )
 
     version: str = Field(
-        default="0.1.0", 
+        default="0.1.1", 
         description="Version of the application",
         exclude=True
     )

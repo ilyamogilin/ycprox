@@ -1,6 +1,6 @@
 [project]
 name = "ycprox"
-version = "0.1.0"
+version = "0.1.1"
 description = "A tool for deploying api-gateway proxy in your Yandex Cloud infra"
 readme = "README.md"
 requires-python = ">=3.11"
