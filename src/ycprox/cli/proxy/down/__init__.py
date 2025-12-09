@@ -1,9 +1,9 @@
 from pydantic import BaseModel
-from yandex.cloud.serverless.apigateway.v1.apigateway_service_pb2 import DeleteApiGatewayRequest
 
 from ycprox.cli.proxy.model import ProxySettings
 from ycprox.core.secrets import vault
-from ycprox.ycloud.client import get_sdk, get_apigateway_service
+from ycprox.ycloud.apigateway import delete_api_gateway
+from ycprox.ycloud.cloudfunction import delete_cloud_function
 
 
 class ProxyAppDown(BaseModel):
@@ -23,16 +23,24 @@ class ProxyAppDown(BaseModel):
         if not proxy.gateway_id:
             print("No gateway_id found in saved settings.")
             return
+
+        if not proxy.function_id:
+            print("No function_id found in saved settings.")
+            return
+
+        print(f"Deleting Cloud Function '{proxy.cf_name}' (ID: {proxy.function_id})...")
         
+        success = delete_cloud_function(proxy.function_id)
+        
+        if success:
+            print("Cloud Function deleted successfully!")
+        else:
+            print("Failed to delete Cloud Function.")
         print(f"Deleting API Gateway '{proxy.gw_name}' (ID: {proxy.gateway_id})...")
         
-        service = get_apigateway_service()
-        operation = service.Delete(DeleteApiGatewayRequest(
-            api_gateway_id=proxy.gateway_id,
-        ))
+        success = delete_api_gateway(proxy.gateway_id)
         
-        # Wait for operation to complete
-        sdk = get_sdk()
-        sdk.wait_operation_and_get_result(operation)
-        
-        print("API Gateway deleted successfully!")
+        if success:
+            print("API Gateway deleted successfully!")
+        else:
+            print("Failed to delete API Gateway.")
