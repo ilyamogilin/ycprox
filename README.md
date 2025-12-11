@@ -27,10 +27,16 @@ The proxy preserves headers, query parameters, and request bodies while filterin
 ## Quick start
 
 ```bash
-# Clone and install with setup.py
+# Clone the repo
 git clone https://github.com/chlzen/ycprox.git
 cd ycprox
-python setup.py install
+
+# Optional creating of venv
+# python -m venv ycproxenv
+# source ycproxenv/bin/activate
+
+# Install via pip
+pip install .
 
 # Authenticate with Yandex OAuth token
 ycprox auth init
