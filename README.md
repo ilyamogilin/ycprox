@@ -2,7 +2,8 @@
 
 A tool for deploying a forward proxy in your Yandex Cloud infrastructure to change your IP address (almost) each request.
 
-[Ru version of docs](https://github.com/chlzen/ycprox/blob/main/docs/README_RU.md)
+- [Blog post](https://blog.chillz.work/posts/ycprox-release/)
+- [Ru version of docs](https://github.com/chlzen/ycprox/blob/main/docs/README_RU.md)
 
 ## Features
 - All HTTP(S) methods supported
