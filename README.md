@@ -16,7 +16,7 @@ A tool for deploying a forward proxy in your Yandex Cloud infrastructure to chan
 ycprox similar to [fireprox](https://github.com/ustayready/fireprox/) creates API Gateway in cloud, but also spins up a Cloud Function to control output headers of the request.
 
 ```
-Client → API Gateway → Cloud Function → Your destination service IP
+Client → API Gateway → Cloud Function → Your targeted host
 ```
 
 The proxy preserves headers, query parameters, and request bodies while filtering out internal Yandex Cloud headers.
